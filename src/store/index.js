@@ -22,6 +22,12 @@ export default new Vuex.Store({
       },
       SET_RECIRECT: (state,newValue) => {
         state.redirectLink = newValue;
+      },
+      SET_USER_NAME: (state,newValue) => {
+          state.userName = newValue;
+      },
+      SET_PHOTO_URL: (state,newValue) => {
+          state.photoUrl= newValue;
       }
   },
   actions: {
