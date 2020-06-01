@@ -6,8 +6,8 @@
         {{text}}
         <br><br>
         <div class="toolbar">
-            <div v-for="reaction in reactions" :key="reaction.smiley">
-                <button @click="react(reactions.smiley)" class="option">
+            <div v-for="reaction in reactions" :key="reaction.smileyName">
+                <button @click="react(reaction.smiley)" class="option">
                     <span v-html="reaction.html"></span>
                 </button>
                 {{reaction.count}}
@@ -50,15 +50,6 @@
                     if ( this.reactions[i]["smiley"] === smiley )
                     {
                         this.reactions[i]["count"] = count;
-                        for ( var x=0; x < this.emo.length; x++)
-                        {
-                            if ( this.emo[x].id === smiley )
-                            {
-                                this.emo[x].count = count;
-                                break;
-                            }
-                        }
-                        break;
                     }
                 }
             },
