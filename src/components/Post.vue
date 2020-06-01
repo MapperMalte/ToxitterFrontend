@@ -6,79 +6,117 @@
         {{text}}
         <br><br>
         <div class="toolbar">
-            <div v-for="emotion in emo" :key="emotion.id">
-                <button class="option">
-                    <span v-html="emotion.html"></span>
+            <div v-for="reaction in reactions" :key="reaction.smiley">
+                <button @click="react(reactions.smiley)" class="option">
+                    <span v-html="reaction.html"></span>
                 </button>
-                {{emotion.count}}
+                {{reaction.count}}
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import * as axios from "axios";
+
     export default {
         name: "Post",
         props: ['author','img','profileId','postId','text','reactions'],
         mounted: function(){
             console.log("Reactions: "+JSON.stringify(this.reactions));
+            /*
+            console.log("Reactions: "+JSON.stringify(this.reactions));
             for(var i = 0; i < this.reactions.length; i++) {
              console.log(this.reactions[i]["smiley"]);
                 console.log(this.reactions[i]["smiley"]);
                 console.log(this.reactions[i]["count"]);
-
                 for ( var x=0; x < this.emo.length; x++)
                 {
                     console.log("Emo:"+this.emo[x].id);
 
-                    if ( this.emo[x].id === (":"+this.reactions[i]["smiley"]+":") )
+                    if ( this.emo[x].id === (this.reactions[i]["smiley"]) )
                     {
                         this.emo[x].count = this.reactions[i]["count"];
                         break;
                     }
                 }
-            }
+            }*/
+        },
+        methods: {
+            setReactionCount(smiley, count)
+            {
+                console.log("Smiley: "+smiley+" Count: "+count);
+                for(var i = 0; i < this.reactions.length; i++) {
+                    if ( this.reactions[i]["smiley"] === smiley )
+                    {
+                        this.reactions[i]["count"] = count;
+                        for ( var x=0; x < this.emo.length; x++)
+                        {
+                            if ( this.emo[x].id === smiley )
+                            {
+                                this.emo[x].count = count;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            },
+          react(smiley) {
+              console.log("React with smiley: "+smiley);
+              axios
+                  .get('http://localhost:8001/post/react'
+                      + '?tokenId=' +this.$store.state.accessToken
+                      + '?postId=' +this.postId
+                      + '?userId=' +this.$store.state.userId
+                      + '?smiley=' +smiley
+                  )
+                  .then(response => (
+                      this.setReactionCount(smiley,response.data)
+                  ))
+                  .catch(error => console.log(error));
+          }
         },
         data: function(){
             return {
                 emo: [{
-                        id: ":heart_eyes:",
+                        id: "heart_eyes",
                         html: "&#128525;",
                         html2: "&#x1f60d;",
                         count: 0
                     },
                     {
-                        id:":heart:",
+                        id:"heart",
                         html:"❤️",
                         html2:"&#65039;",
                         count: 0
                     },
                     {
-                        id: ":rage:",
+                        id: "rage",
                         html:"&#128545;",
                         html2:"&#x1f621;",
                         count: 0
                     },
                     {
-                        id:":joy:",
+                        id:"joy",
                         html:"&#128514;",
                         html2:"&#x1f602;",
                         count: 0
                     },
                     {
-                        id:":cry:",
+                        id:"cry",
                         html:"&#128546;",
                         html2:"&#x1f622;",
                         count: 0
                     },
                     {
-                        id:":flushed:",
+                        id:"flushed",
                         html:"&#128563;",
                         html2:"&#x1f633;",
                         count: 0
                     },
                     {
-                        id:":satisfied:",
+                        id:"satisfied",
                         html:"&#128518;",
                         html2:"&#x1f606;",
                         count: 0

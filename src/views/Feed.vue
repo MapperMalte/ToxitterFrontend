@@ -7,7 +7,7 @@
         </div>
         <button @click="load"></button>
         <div v-for="post in posts" :key="post.id">
-            <Post :img="post.img" :text="post.content" :author="post.ownerName" :reactions="post.reactions"></Post>
+            <Post :post-id="post.id" :img="post.img" :text="post.content" :author="post.ownerName" :reactions="post.reactions"></Post>
         </div>
     </div>
 </template>
@@ -16,7 +16,6 @@
     import Post from "../components/Post";
     import VueEmoji from 'emoji-vue'
     import * as axios from "axios";
-
     export default {
         name: "Feed",
         components: {
