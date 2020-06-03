@@ -3,7 +3,8 @@
     <div id="nav">
       <router-link to="/">News</router-link> |
       <router-link to="/feed">Feed</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/chat">Chat</router-link> |
+      <router-link to="/notifications">Benachrichtigungen</router-link>
     </div>
     <div id="auth" v-if="!loggedIn">
       <router-link class="authbox login loginLink" to="/login">Login</router-link>

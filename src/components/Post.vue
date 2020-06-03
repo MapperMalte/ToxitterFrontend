@@ -1,9 +1,11 @@
 <template xmlns="http://www.w3.org/1999/html">
     <div class="post">
+        <h1>{{title}}</h1>
         <div class="postHeader">
-            {{author}} schreibt:
+            <img v-bind:src="profileImageUrl"><br>
+            <h3>{{author}}</h3> schreibt:
         </div>
-        {{text}}
+        <div v-html="displayText"></div>
         <br><br>
         <div class="toolbar">
             <div v-for="reaction in reactions" :key="reaction.smileyName">
@@ -21,26 +23,14 @@
 
     export default {
         name: "Post",
-        props: ['author','img','profileId','postId','text','reactions'],
+        props: ['author','title','img','profileId','postId','text','reactions','profileImageUrl'],
         mounted: function(){
             console.log("Reactions: "+JSON.stringify(this.reactions));
-            /*
-            console.log("Reactions: "+JSON.stringify(this.reactions));
-            for(var i = 0; i < this.reactions.length; i++) {
-             console.log(this.reactions[i]["smiley"]);
-                console.log(this.reactions[i]["smiley"]);
-                console.log(this.reactions[i]["count"]);
-                for ( var x=0; x < this.emo.length; x++)
-                {
-                    console.log("Emo:"+this.emo[x].id);
-
-                    if ( this.emo[x].id === (this.reactions[i]["smiley"]) )
-                    {
-                        this.emo[x].count = this.reactions[i]["count"];
-                        break;
-                    }
-                }
-            }*/
+        },
+        computed: {
+          displayText: function () {
+              return this.text.split('\\n').join("<br>")
+          }
         },
         methods: {
             setReactionCount(smiley, count)
@@ -67,58 +57,14 @@
                   ))
                   .catch(error => console.log(error));
           }
-        },
-        data: function(){
-            return {
-                emo: [{
-                        id: "heart_eyes",
-                        html: "&#128525;",
-                        html2: "&#x1f60d;",
-                        count: 0
-                    },
-                    {
-                        id:"heart",
-                        html:"❤️",
-                        html2:"&#65039;",
-                        count: 0
-                    },
-                    {
-                        id: "rage",
-                        html:"&#128545;",
-                        html2:"&#x1f621;",
-                        count: 0
-                    },
-                    {
-                        id:"joy",
-                        html:"&#128514;",
-                        html2:"&#x1f602;",
-                        count: 0
-                    },
-                    {
-                        id:"cry",
-                        html:"&#128546;",
-                        html2:"&#x1f622;",
-                        count: 0
-                    },
-                    {
-                        id:"flushed",
-                        html:"&#128563;",
-                        html2:"&#x1f633;",
-                        count: 0
-                    },
-                    {
-                        id:"satisfied",
-                        html:"&#128518;",
-                        html2:"&#x1f606;",
-                        count: 0
-                    }
-                    ]
-            }
         }
     }
 </script>
 
 <style scoped>
+    .paragraph{
+        white-space: pre-line;
+    }
     .post {
         max-width: 340px;
         background-color: white;

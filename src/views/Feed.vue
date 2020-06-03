@@ -1,26 +1,30 @@
 <template>
     <div class="feed">
-        <div class="submit">
-            <VueEmoji ref="emoji" @input="onInput" :value="myText" />
-
-            <button class="button">Absenden</button>
-        </div>
+        <WritePost></WritePost>
         <button @click="load"></button>
         <div v-for="post in posts" :key="post.id">
-            <Post :post-id="post.id" :img="post.img" :text="post.content" :author="post.ownerName" :reactions="post.reactions"></Post>
+            <Post
+                    :post-id="post.id"
+                    :profile-image-url="post.photoUrl"
+                    :text="post.content"
+                    :author="post.ownerName"
+                    :reactions="post.reactions"
+                    :title="post.title"
+            ></Post>
         </div>
     </div>
 </template>
 
 <script>
     import Post from "../components/Post";
-    import VueEmoji from 'emoji-vue'
+    import WritePost from "../components/WritePost";
+
     import * as axios from "axios";
     export default {
         name: "Feed",
         components: {
             Post,
-            VueEmoji
+            WritePost
         },
         methods: {
             onInput(event) {
@@ -30,64 +34,45 @@
                 this.$refs.emoji.clear()
             },
             load(data){
-                this.postsFetched = data;
-                console.log("PostsFetched: "+this.postsFetched[0]["content"]);
-                let isJson = function IsJsonString(str) {
-                    try {
-                        JSON.parse(str);
-                    } catch (e) {
-                        console.log(e)
-                        return false;
-                    }
-                    return true;
-                }
-                console.log("Jsonizing...");
-                console.log("IsJson: "+isJson(this.postsFetched));
-                for(var i = 0; i < this.postsFetched.length; i++) {
-                    var obj = this.postsFetched[i];
-                    console.log("Object:"+ obj);
-                    console.log("Content: "+obj.content);
-                    this.posts.push(obj);
-                }
-                console.log("Posts: "+this.posts)
-            },
+                console.log("PostsFetched: "+JSON.stringify(data).toString());
+                console.log("First content: "+(data[0]["content"]).toString());
+                this.$store.commit('SET_POSTS',data)
+            }
 
         },
-        data: function () {
-            return {
-                postsFetched: null,
-                posts: []
+        computed: {
+          posts: function () {
+              return this.$store.state.posts
+          },
+            loggedIn: function () {
+                return !(this.$store.state.accessToken.toString() === "")
             }
         },
         mounted () {
             console.log("Token: "+this.$store.state.accessToken.toString());
-            if ( this.$store.state.accessToken.toString() == "" )
+            if ( !this.loggedIn )
             {
                 console.log("Not logged in");
-                this.$store.commit('SET_RECIRECT',"/login#/feed");
+                this.$store.commit('SET_REDIRECT',"/login#/feed");
                 window.location = "/login#/login";
+            } else {
+
+                axios
+                    .get('http://localhost:8001/feed/all?tokenId='+this.$store.state.accessToken)
+                    .then(response => (
+                        this.load(response.data)
+                    ))
+                    .catch(error => console.log(error));
             }
-            axios
-                .get('http://localhost:8001/feed/all?tokenId='+this.$store.state.accessToken)
-                .then(response => (
-                    this.load(response.data)
-                ))
-                .catch(error => console.log(error));
         }
     }
 </script>
 
 <style scoped>
     .feed {
-        height: 4000px;
+        height: 12000px;
         background-color: darkgrey;
         width: 640px;
-        margin: 0 auto;
-    }
-    .submit{
-        width: 320px;
-        background-color: white;
-        height: 240px;
         margin: 0 auto;
     }
     .button{

@@ -11,7 +11,8 @@ export default new Vuex.Store({
     redirectLink:"",
     userName:"",
     userMail:"",
-    photoUrl:""
+    photoUrl:"",
+      posts:[]
   },
   mutations: {
       SET_ACCESS_TOKEN: (state, newValue) => {
@@ -20,7 +21,7 @@ export default new Vuex.Store({
       SET_USER_ID: (state, newValue) => {
           state.userId = newValue
       },
-      SET_RECIRECT: (state,newValue) => {
+      SET_REDIRECT: (state,newValue) => {
         state.redirectLink = newValue;
       },
       SET_USER_NAME: (state,newValue) => {
@@ -28,6 +29,12 @@ export default new Vuex.Store({
       },
       SET_PHOTO_URL: (state,newValue) => {
           state.photoUrl= newValue;
+      },
+      SET_POSTS: (state,newValue) => {
+          state.posts = newValue;
+      },
+      ADD_POST: (state, newValue) => {
+          state.posts.unshift(newValue)
       }
   },
   actions: {
@@ -39,7 +46,6 @@ export default new Vuex.Store({
           commit('SET_USER_ID', newValue)
           return state.userId
       },
-      // other actions
   },
   modules: {
   }
