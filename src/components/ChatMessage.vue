@@ -2,6 +2,7 @@
     <div>
         <img class="profileImg" v-bind:src="msg.thumbnailUrl">
         {{msg.senderName}}
+        {{msg.timestamp}}
         <p class="contentP">
             {{msg.content}}
         </p>
@@ -12,7 +13,6 @@
     export default {
         name: "ChatMessage",
         props: ["msg"],
-
     }
 </script>
 
