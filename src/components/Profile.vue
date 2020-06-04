@@ -26,7 +26,8 @@
         methods: {
           loadProfile: function (response) {
               this.profile = response
-              this.$store.commit('SET_PHOTO_URL', response['photoUrl'])
+              this.$store.commit('SET_PROFILE_PHOTO_URL', response['photoUrl'])
+              this.$store.commit('SET_THUMBNAIL_URL', response['photoUrl'])
               this.$store.commit('SET_USER_NAME', response['userName'])
           }
         },

@@ -35,6 +35,9 @@
             {
                 this.$store.commit('SET_ACCESS_TOKEN', response['accessToken'])
                 this.$store.commit('SET_USER_ID', response['userId'])
+                this.$store.commit('SET_USER_NAME', response['userName'])
+                this.$store.commit('SET_PROFILE_PHOTO_URL', response['photoUrl'])
+                this.$store.commit('SET_THUMBNAIL_URL', response['photoUrl'])
                 console.log("Redirect link: "+this.$store.state.redirectLink);
                 if ( !(this.$store.state.redirectLink === "") )
                 {

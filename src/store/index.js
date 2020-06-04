@@ -5,13 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userId: "",
-    sessionId:"",
-    accessToken:"",
-    redirectLink:"",
-    userName:"",
-    userMail:"",
-    photoUrl:"",
+      userId: "",
+      sessionId:"",
+      accessToken:"",
+      redirectLink:"",
+      userName:"",
+      userMail:"",
+      photoUrl:"",
+      thumbnailUrl: "",
       posts:[]
   },
   mutations: {
@@ -27,11 +28,14 @@ export default new Vuex.Store({
       SET_USER_NAME: (state,newValue) => {
           state.userName = newValue;
       },
-      SET_PHOTO_URL: (state,newValue) => {
-          state.photoUrl= newValue;
-      },
       SET_POSTS: (state,newValue) => {
           state.posts = newValue;
+      },
+      SET_PROFILE_PHOTO_URL: (state,newValue) => {
+          state.photoUrl = newValue;
+      },
+      SET_THUMBNAIL_URL: (state,newValue) => {
+          state.thumbnailUrl = newValue;
       },
       ADD_POST: (state, newValue) => {
           state.posts.unshift(newValue)
