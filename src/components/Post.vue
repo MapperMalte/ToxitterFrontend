@@ -1,11 +1,11 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
     <div class="post">
         <h1>{{title}}</h1>
         <div class="postHeader">
             <img v-bind:src="profileImageUrl"><br>
             <h3>{{author}}</h3> schreibt:
         </div>
-        <div v-html="displayText"></div>
+        <div class="content" v-html="displayText"></div>
         <br><br>
         <div class="toolbar">
             <div v-for="reaction in reactions" :key="reaction.smileyName">
@@ -66,7 +66,7 @@
         white-space: pre-line;
     }
     .post {
-        max-width: 340px;
+        max-width: 403px;
         background-color: white;
         border-radius: 15px;
         border: 1px solid grey;
@@ -92,5 +92,9 @@
     .option:hover{
         font-size: 33px;
         transition: all ease 0.3s;
+    }
+    .content{
+        padding: 20px;
+        text-align: left;
     }
 </style>

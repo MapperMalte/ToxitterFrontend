@@ -2,7 +2,8 @@
     <div class="submit">
         <h1>{{title}}</h1>
         <input type="text" placeholder="Titel" maxlength="30" v-model="title"/>
-        <textarea class="writeArea" v-model="content"></textarea>
+        <br>
+        <textarea class="writeArea" v-model="content" @input="mixin_autoResize_resize"></textarea>
         <hr width="270px">
         <button class="button" @click="this.submit">Absenden</button>
     </div>
@@ -10,9 +11,10 @@
 
 <script>
     import * as axios from "axios";
-
+    import autoResize from "../mixins/autoResize";
     export default {
         name: "WritePost",
+        mixins: [autoResize],
         data: function(){
           return{
               title: "Titel",
@@ -45,21 +47,15 @@
         position: relative;
     }
     .submit{
-        width: 320px;
-        background-color: white;
-        height: 280px;
-        margin: 0 auto;
-        border: 1px solid red;
-        position: relative;
-        top: 40px;
     }
     .writeArea{
-        width: 270px;
+        width: 403px;
         border-radius: 5px;
         border: none;
         padding: 20px;
         font-size: 20px;
         font-weight: 500;
+        margin: 0 auto;
 
     }
     input:focus, textarea:focus

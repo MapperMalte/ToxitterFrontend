@@ -1,7 +1,6 @@
 <template>
     <div class="feed">
         <WritePost></WritePost>
-        <button @click="load"></button>
         <div v-for="post in posts" :key="post.id">
             <Post
                     :post-id="post.id"
