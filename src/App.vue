@@ -3,11 +3,11 @@
     <div id="nav">
       <router-link to="/"><i class="fa fa-2x fa-newspaper"></i>News</router-link>
       <router-link to="/feed"><i class="fa fa-2x fa-eye"></i>Feed</router-link>
-      <router-link v-if="loggedIn" to="/chat"><i class="fa fa-2x fa-comments"></i> Chat</router-link>
+      <router-link v-if="loggedIn" to="/chat"><i class="fa fa-2x fa-comments"></i>Chat</router-link>
       <router-link v-if="loggedIn" to="/notifications"><i class="fa fa-2x fa-bell"></i>Benachrichtigungen</router-link>
       <router-link v-if="loggedIn"  to="/profile"><i class="fa fa-2x fa-user"></i>Profil</router-link>
-      <router-link v-if="!loggedIn"  to="/login">Login</router-link>
-      <router-link v-if="!loggedIn" to="/register">Registrieren</router-link>
+      <router-link v-if="!loggedIn"  to="/login"><i class="fa fa-2x fa-sign-in-alt"></i>Login</router-link>
+      <router-link v-if="!loggedIn" to="/register"><i class="fa fa-2x fa-door-open"></i>Registrieren</router-link>
     </div>
     <router-view/>
   </div>
@@ -67,8 +67,8 @@ a {
 }
 .authbox{
   position: fixed;
-  right: 0px;
-  margin: 50px;
+  top: 400px;
+  margin: 0 auto;
   padding: 30px;
   font-weight: bolder;
   width: 100px;

@@ -41,7 +41,7 @@
                 console.log("Redirect link: "+this.$store.state.redirectLink);
                 if ( !(this.$store.state.redirectLink === "") )
                 {
-                    window.location = this.$store.state.redirectLink;
+                    this.$router.push(this.$store.state.redirectLink);
                 }
             },
             attemptLogin() {

@@ -2,7 +2,7 @@
     <div class="post">
         <h1>{{title}}</h1>
         <div class="postHeader">
-            <img v-bind:src="profileImageUrl"><br>
+            <img v-bind:src="profileUrl"><br>
             <h3>{{author}}</h3> schreibt:
         </div>
         <div class="content" v-html="displayText"></div>
@@ -20,12 +20,25 @@
 
 <script>
     import * as axios from "axios";
+    import * as firebase from "firebase";
 
     export default {
         name: "Post",
         props: ['author','title','img','profileId','postId','text','reactions','profileImageUrl'],
+        data: function() {
+            return{
+                profileUrl: this.profileImageUrl
+            }
+        },
         mounted: function(){
             console.log("Reactions: "+JSON.stringify(this.reactions));
+            firebase.storage().ref(this.profileImageUrl).getDownloadURL().then((url) => {
+                this.profileUrl = url;
+            }).catch(function(error)
+            {
+                console.log(error)
+            })
+
         },
         computed: {
           displayText: function () {

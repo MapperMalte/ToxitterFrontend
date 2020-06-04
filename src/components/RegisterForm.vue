@@ -36,13 +36,21 @@
         methods:{
             login(response)
             {
+                console.log("Data: "+JSON.stringify(response))
+                console.log("Token; "+response['accessToken'])
                 this.$store.commit('SET_ACCESS_TOKEN', response['accessToken'])
                 this.$store.commit('SET_USER_ID', response['userId'])
+                this.$store.commit('SET_USER_NAME', response['userName'])
+                this.$router.push("/profile")
+                /*
                 console.log("Redirect link: "+this.$store.state.redirectLink);
                 if ( !(this.$store.state.redirectLink === "") )
                 {
                     window.location = this.$store.state.redirectLink;
-                }
+                } else
+                {
+
+                }*/
             },
             attemptLogin() {
                 axios

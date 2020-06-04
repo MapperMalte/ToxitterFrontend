@@ -1,9 +1,10 @@
 <template>
     <div class="submit">
+        <br>
         <h1>{{title}}</h1>
         <input type="text" placeholder="Titel" maxlength="30" v-model="title"/>
         <br>
-        <textarea class="writeArea" v-model="content" @input="mixin_autoResize_resize"></textarea>
+        <textarea autocapitalize="none" autocomplete="off" spellcheck="false" class="writeArea" v-model="content" @input="mixin_autoResize_resize"></textarea>
         <hr width="270px">
         <button class="button" @click="this.submit">Absenden</button>
     </div>
@@ -47,6 +48,7 @@
         position: relative;
     }
     .submit{
+        margin-top: 150px;
     }
     .writeArea{
         width: 403px;
@@ -56,6 +58,7 @@
         font-size: 20px;
         font-weight: 500;
         margin: 0 auto;
+        font-family: Verdana;
 
     }
     input:focus, textarea:focus

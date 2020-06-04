@@ -1,5 +1,5 @@
 <template>
-    <div class="feed">
+    <div v-if="loggedIn" class="feed">
         <WritePost></WritePost>
         <div v-for="post in posts" :key="post.id">
             <Post
@@ -52,8 +52,8 @@
             if ( !this.loggedIn )
             {
                 console.log("Not logged in");
-                this.$store.commit('SET_REDIRECT',"/login#/feed");
-                window.location = "/login#/login";
+                this.$store.commit('SET_REDIRECT',"/feed");
+                this.$router.push("/login")
             } else {
 
                 axios

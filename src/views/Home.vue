@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <h1>04.06 - Chat läuft</h1>
+    <p>
+      Das Backend für den Chat läuft auf Elixir. Ich überlege, wie ich die Daten persistiere. Cassandra als verteilte Datenbank spricht mich an.
+    </p>
   </div>
 </template>
 
@@ -8,6 +11,22 @@
 // @ is an alias to /src
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  computed: {
+    loggedIn: function () {
+      return !(this.$store.state.accessToken.toString() === "")
+    }
+  },
+  mounted () {
+    if (!this.loggedIn) {
+      console.log("Not logged in");
+      this.$store.commit('SET_REDIRECT', "/");
+    }
+  }
 }
 </script>
+<style scoped>
+  .home h1{
+    margin-top: 150px;
+  }
+</style>
