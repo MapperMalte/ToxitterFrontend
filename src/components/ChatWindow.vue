@@ -11,6 +11,7 @@
 
 <script>
     import ChatMessage from "./ChatMessage";
+
     export default {
         name: "Chatwindow",
         components: {
@@ -20,21 +21,22 @@
         {
           return {
               currentlyTyping: "",
-              messages: []
+              messages: [],
+              users: []
           }
         },
         methods: {
             sendMessage : function(){
                 this.socket.send(
                     JSON.stringify({
-                        thumbnailUrl: this.$store.state.photoUrl,
+                        thumbnailUrl: this.$store.state.thumbnailUrl,
                         senderName: this.$store.state.userName,
                         content: this.currentlyTyping,
                         timestamp: (new Date().getTime())
                     })
                 )
                 this.currentlyTyping = "";
-            }
+            },
         },
         mounted() {
             this.socket = new WebSocket("ws://localhost:4000/ws/chat")

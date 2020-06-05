@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1>Url {{url}}</h1>
         <img class="profileImg" v-bind:src="msg.thumbnailUrl">
         {{msg.senderName}}
         {{msg.timestamp}}
@@ -10,9 +11,20 @@
 </template>
 
 <script>
+    import * as firebase from "firebase";
+
     export default {
         name: "ChatMessage",
         props: ["msg"],
+
+        mounted() {
+            return firebase.storage().ref(this.msg.thumbnailUrl).getDownloadURL().then((url) => {
+                this.msg.thumbnailUrl = url;
+            }).catch(function(error)
+            {
+                console.log(error)
+            })
+        }
     }
 </script>
 

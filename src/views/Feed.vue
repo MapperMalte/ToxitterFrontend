@@ -74,6 +74,7 @@
         width: 640px;
         margin: 0 auto;
     }
+
     .button{
         margin: 0 auto;
         width: fit-content;
@@ -93,5 +94,19 @@
     }
     .reactionBar{
         justify-content: space-evenly;
+    }
+    @media only screen and (max-width: 600px)  {
+        .post {
+            max-width: 100%!important;
+            margin: 0;
+        }
+        .post >*{
+            max-width: 100%!important;
+            margin: 0;
+        }
+        .feed {
+            width: 100% !important;
+        }
+
     }
 </style>

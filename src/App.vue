@@ -2,12 +2,16 @@
   <div id="app">
     <div id="nav">
       <router-link to="/"><i class="fa fa-2x fa-newspaper"></i>News</router-link>
-      <router-link to="/feed"><i class="fa fa-2x fa-eye"></i>Feed</router-link>
-      <router-link v-if="loggedIn" to="/chat"><i class="fa fa-2x fa-comments"></i>Chat</router-link>
+      <router-link class="hidden" to="/feed"><i class="fa fa-2x fa-eye"></i>Feed</router-link>
+      <router-link class="hidden" v-if="loggedIn" to="/chat"><i class="fa fa-2x fa-comments"></i>Chat</router-link>
       <router-link v-if="loggedIn" to="/notifications"><i class="fa fa-2x fa-bell"></i>Benachrichtigungen</router-link>
-      <router-link v-if="loggedIn"  to="/profile"><i class="fa fa-2x fa-user"></i>Profil</router-link>
-      <router-link v-if="!loggedIn"  to="/login"><i class="fa fa-2x fa-sign-in-alt"></i>Login</router-link>
+      <router-link v-if="loggedIn" to="/profile"><i class="fa fa-2x fa-user"></i>Profil</router-link>
+      <router-link v-if="!loggedIn" to="/login"><i class="fa fa-2x fa-sign-in-alt"></i>Login</router-link>
       <router-link v-if="!loggedIn" to="/register"><i class="fa fa-2x fa-door-open"></i>Registrieren</router-link>
+    </div>
+    <div id="mobileBottomNav">
+      <router-link class="nothidden" to="/feed"><i class="fa fa-2x fa-eye"></i>Feed</router-link>
+      <router-link class="nothidden" v-if="loggedIn" to="/chat"><i class="fa fa-2x fa-comments"></i>Chat</router-link>
     </div>
     <router-view/>
   </div>
@@ -20,6 +24,25 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+#mobileBottomNav .nothidden{
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  #nav .hidden{
+    display: none;
+  }
+
+  #mobileBottomNav{
+    width: 100%;
+    background-color: #2c3e50;
+    position: fixed;
+    bottom: 10px;
+  }
+
+  #mobileBottomNav .nothidden{
+    display: inline-flex!important;
+  }
 }
 
 #nav {
@@ -38,6 +61,7 @@
   background-color: #1a6f11;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
 }
+
 i{
   padding: 5px;
   margin-right: 10px;
@@ -56,35 +80,11 @@ a {
   color: #ceff1c;
  }
 
-.profilebox{
-  position: fixed;
-  left: 0px;
-  margin: 50px;
-  padding: 30px;
-  font-weight: bolder;
-  width: 100px;
-  height: 28px;
-}
-.authbox{
-  position: fixed;
-  top: 400px;
-  margin: 0 auto;
-  padding: 30px;
-  font-weight: bolder;
-  width: 100px;
-  height: 28px;
-}
 .authbox *{
   margin: 0 auto;
   horiz-align: center;
   vertical-align: center;
 }
-  .login{
-    top: 0px;
-  }
-  .register{
-    top: 110px;
-  }
 </style>
 
 <script>

@@ -71,7 +71,7 @@
 
 <style scoped>
     .login{
-        margin: 0 auto;
+        margin: 130px auto 0;
         width: 400px;
     }
     .login input{

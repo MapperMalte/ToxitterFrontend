@@ -33,9 +33,7 @@ export default new Vuex.Store({
       },
       SET_PROFILE_PHOTO_URL: (state,newValue) => {
           state.photoUrl = newValue;
-      },
-      SET_THUMBNAIL_URL: (state,newValue) => {
-          state.thumbnailUrl = newValue;
+          state.thumbnailUrl = newValue.split(".").join("_100x100.");
       },
       ADD_POST: (state, newValue) => {
           state.posts.unshift(newValue)

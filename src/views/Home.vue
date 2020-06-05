@@ -4,6 +4,10 @@
     <p>
       Das Backend für den Chat läuft auf Elixir. Ich überlege, wie ich die Daten persistiere. Cassandra als verteilte Datenbank spricht mich an.
     </p>
+    <br>
+    <h3>Betritt jetzt Toxitter:</h3>
+    <br>
+    <button class="btn" @click="$router.push('/register')">KLICK MICH!!!</button>
   </div>
 </template>
 
@@ -28,5 +32,11 @@ export default {
 <style scoped>
   .home h1{
     margin-top: 150px;
+  }
+  .btn{
+    width: 300px;
+    height: 130px;
+    font-size: 35px;
+
   }
 </style>

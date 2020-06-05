@@ -2,7 +2,7 @@
     <div class="post">
         <h1>{{title}}</h1>
         <div class="postHeader">
-            <img v-bind:src="profileUrl"><br>
+            <img class="img" v-bind:src="profileUrl"><br>
             <h3>{{author}}</h3> schreibt:
         </div>
         <div class="content" v-html="displayText"></div>
@@ -32,7 +32,8 @@
         },
         mounted: function(){
             console.log("Reactions: "+JSON.stringify(this.reactions));
-            firebase.storage().ref(this.profileImageUrl).getDownloadURL().then((url) => {
+            console.log("Url: "+this.profileImageUrl.split(".").join("_100x100."));
+            firebase.storage().ref(this.profileImageUrl.split(".").join("_100x100.")).getDownloadURL().then((url) => {
                 this.profileUrl = url;
             }).catch(function(error)
             {
@@ -79,7 +80,7 @@
         white-space: pre-line;
     }
     .post {
-        max-width: 403px;
+        max-width: 600px;
         background-color: white;
         border-radius: 15px;
         border: 1px solid grey;
@@ -110,4 +111,8 @@
         padding: 20px;
         text-align: left;
     }
+    .img{
+        border-radius: 50%;
+    }
+
 </style>
