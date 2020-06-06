@@ -13,6 +13,9 @@ export default new Vuex.Store({
       userMail:"",
       photoUrl:"",
       thumbnailUrl: "",
+      url: "afafd0c4f6e7.ngrok.io",
+      apiScheme: "https://",
+      elixir: "localhost",
       posts:[]
   },
   mutations: {

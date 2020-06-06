@@ -60,7 +60,7 @@
           react(smiley) {
               console.log("React with smiley: "+smiley);
               axios
-                  .get('http://localhost:8001/post/react'
+                  .get(this.$store.state.apiScheme+this.$store.state.url+'/post/react'
                       + '?tokenId=' +this.$store.state.accessToken
                       + '?postId=' +this.postId
                       + '?userId=' +this.$store.state.userId

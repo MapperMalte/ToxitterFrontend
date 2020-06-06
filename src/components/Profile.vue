@@ -39,7 +39,7 @@
         methods: {
           loadProfile: function (response) {
               this.profile = response
-              this.picture = "https://firebasestorage.googleapis.com/v0/b/toxitter.appspot.com/o/20080818todesstern.jpg?alt=media&token=82e99fed-6597-4076-893b-7a018c993ce9"
+              this.picture = response['photoUrl']
               this.$store.commit('SET_PROFILE_PHOTO_URL', response['photoUrl'])
               this.$store.commit('SET_USER_NAME', response['displayName'])
               console.log("Loading: "+response['photoUrl']);
@@ -67,8 +67,9 @@
                     ()=>{this.uploadValue=100;
                         storageRef.snapshot.ref.getDownloadURL().then((url)=>{
                             this.picture = url
+                            this.$store.commit('SET_PROFILE_PHOTO_URL', url)
                             axios
-                                .get('http://localhost:8001/user/setprofilephoto'
+                                .get(this.$store.state.apiScheme+this.$store.state.url+'/user/setprofilephoto'
                                     + '?tokenId=' +this.$store.state.accessToken
                                     + '?userId=' +this.$store.state.userId
                                     + '?photoUrl=' +`${this.imageData.name}`
@@ -77,6 +78,7 @@
                                     console.log(response.data + " vs "+url)
                                 ))
                                 .catch(error => console.log(error));
+
                         });
                     }
                 );
@@ -84,7 +86,7 @@
         },
         mounted: function () {
             axios
-                .get('http://localhost:8001/user/info'+'?userId='+this.$store.state.userId+'?tokenId='+this.$store.state.accessToken)
+                .get(this.$store.state.apiScheme+this.$store.state.url+'/user/info'+'?userId='+this.$store.state.userId+'?tokenId='+this.$store.state.accessToken)
                 .then(response => (
                     this.loadProfile(response.data)
                 ))

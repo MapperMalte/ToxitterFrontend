@@ -54,7 +54,7 @@
             },
             attemptLogin() {
                 axios
-                    .get('http://localhost:8001/auth/register' +
+                    .get(this.$store.state.apiScheme+this.$store.state.url+'/auth/register' +
                         '?email='+this.email
                         +"?password="+this.password
                         +"?surname="+this.surname

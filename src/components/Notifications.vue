@@ -1,10 +1,10 @@
 <template>
-    <div class="notificationBadge">
-        <div v-for="(notification,index) in notifications" :key="index">
-            {{notification}}
-            {{index}}
-        </div>
-        {{content}}
+    <div>
+        <v-card class="col-4 notificationBadge" v-for="(notification,index) in notifications" :key="index">
+            <v-card-text>
+                {{notification}}
+            </v-card-text>
+        </v-card>
     </div>
 </template>
 
@@ -20,7 +20,7 @@
         },
         mounted: function () {
             axios
-                .get('http://localhost:8001/notifications/user'
+                .get(this.$store.state.apiScheme+this.$store.state.url+'/notifications/user'
                     + '?tokenId=' +this.$store.state.accessToken
                     + '?userId=' +this.$store.state.userId
                 )
@@ -34,10 +34,13 @@
 
 <style scoped>
     .notificationBadge{
-        width: 0px;
+        top: 100px;
         margin: 0 auto;
+        height: fit-content;
     }
-
+    .notificationBadge:hover{
+        border: 1px solid black;
+    }
     .notification{
         width: 320px;
         height: 70px;

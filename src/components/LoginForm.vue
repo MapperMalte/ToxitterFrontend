@@ -45,7 +45,7 @@
             },
             attemptLogin() {
                 axios
-                    .get('http://localhost:8001/auth/login?email='+this.email+"?password="+this.password)
+                    .get(this.$store.state.apiScheme+this.$store.state.url+'/auth/login?email='+this.email+"?password="+this.password)
                     .then(response => (
                         this.login(response.data)
                     ))

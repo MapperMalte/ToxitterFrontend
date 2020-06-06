@@ -5,6 +5,11 @@ import store from './store'
 
 Vue.config.productionTip = false
 import firebase from 'firebase'
+import vuetify from './plugins/vuetify';
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import Vuetify from 'vuetify'
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBez58_HBkL41AB8oLkEy4wE8Czncar6rI",
@@ -18,8 +23,14 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig)
 
+Vue.use(Vuetify)
+
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
+const opts = {}
+
+export default new Vuetify(opts)

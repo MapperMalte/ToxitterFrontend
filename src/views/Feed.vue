@@ -55,9 +55,8 @@
                 this.$store.commit('SET_REDIRECT',"/feed");
                 this.$router.push("/login")
             } else {
-
                 axios
-                    .get('http://localhost:8001/feed/all?tokenId='+this.$store.state.accessToken)
+                    .get(this.$store.state.apiScheme+this.$store.state.url+'/feed/all?tokenId='+this.$store.state.accessToken)
                     .then(response => (
                         this.load(response.data)
                     ))
@@ -102,7 +101,7 @@
         }
         .post >*{
             max-width: 100%!important;
-            margin: 0;
+            margin: 30px 0 0;
         }
         .feed {
             width: 100% !important;
