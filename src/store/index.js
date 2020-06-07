@@ -11,11 +11,12 @@ export default new Vuex.Store({
       redirectLink:"",
       userName:"",
       userMail:"",
+      showEmojiPicker: false,
       photoUrl:"",
       thumbnailUrl: "",
-      url: "afafd0c4f6e7.ngrok.io",
+      url: "e061599de4c7.ngrok.io",
       apiScheme: "https://",
-      elixir: "localhost",
+      elixir: "e061599de4c7.ngrok.io",
       posts:[]
   },
   mutations: {

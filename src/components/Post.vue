@@ -14,6 +14,9 @@
                 </button>
                 {{reaction.count}}
             </div>
+            <button type="button" :class="{ 'triggered': showEmojiPicker }" @mousedown.prevent="toggleEmojiPicker" class="btn btn-default">
+                <i class="fa fa-smile fa-3x"></i>
+            </button>
         </div>
     </div>
 </template>
@@ -25,9 +28,10 @@
     export default {
         name: "Post",
         props: ['author','title','img','profileId','postId','text','reactions','profileImageUrl'],
+
         data: function() {
             return{
-                profileUrl: this.profileImageUrl
+                profileUrl: this.profileImageUrl,
             }
         },
         mounted: function(){
@@ -56,6 +60,14 @@
                         this.reactions[i]["count"] = count;
                     }
                 }
+            },
+            addEmoji(emoji) {
+                this.react(emoji.id);
+                this.$store.state.showEmojiPicker = false;
+            },
+            toggleEmojiPicker () {
+                this.$store.state.showEmojiPicker = !this.$store.state.showEmojiPicker
+                this.$el.querySelector('#emojiPicker').top = 1000;
             },
           react(smiley) {
               console.log("React with smiley: "+smiley);

@@ -82,7 +82,7 @@
             },
         },
         mounted() {
-            this.socket = new WebSocket("ws://"+this.$store.state.elixir+":4000/ws/chat")
+            this.socket = new WebSocket("ws://"+this.$store.state.elixir+"/ws/chat")
             this.socket.addEventListener("message", (event) => {
                 this.receiveMessage(event.data);
             })

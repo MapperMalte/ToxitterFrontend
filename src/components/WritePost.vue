@@ -2,30 +2,15 @@
     <div class="submit">
         <br>
         <h1>{{title}}</h1>
-        <emoji-picker @emoji="insert" style="background-color: white; height: 500px">
-            <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events">
-                <button type="button">open</button>
-            </div>
-            <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-                {{display}}
-                <div>
-                    <div v-for="(emojiGroup, category) in emojis" :key="category">
-                        <h5>{{ category }}</h5>
-                        <div>
-                            <span v-for="(emoji, emojiName) in emojiGroup"
-                                    :key="emojiName"
-                                    @click.stop="insert(emoji)"
-                                    :title="emojiName">{{ emoji }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </emoji-picker>
-
+        <div class="textarea-emoji-picker" style="position: absolute; left: 230px; top: 300px">
+        <picker v-show="showEmojiPicker" title="Pick your emoji..." emoji="point_up" @select="addEmoji"/>
+        </div>
         <div class="wras">
             <div class="editContainer">
                     <div class="tools">
+                        <button type="button" :class="{ 'triggered': showEmojiPicker }" @mousedown.prevent="toggleEmojiPicker" class="btn btn-default">
+                            <i class="fa fa-smile fa-3x"></i>
+                        </button>
                         <button type="button" class="btn btn-default" id="makePhoto">
                             <i class="fa fa-image fa-3x"></i>
                         </button>
@@ -45,7 +30,8 @@
             <div class="center">
                 <input class="titleInput" type="text" placeholder="Titel" maxlength="30" v-model="title"/>
                 <br>
-                <textarea autocapitalize="none" autocomplete="off" spellcheck="false" class="writeArea" v-model="content" @input="mixin_autoResize_resize"></textarea>
+                <textarea id="textarea" autocapitalize="none" autocomplete="off" spellcheck="false" class="writeArea" v-model="content" @input="mixin_autoResize_resize">
+                </textarea>
                 <hr width="270px">
                 <br>
                 <button class="button submitquestion" @click="this.submit">Absenden</button>
@@ -57,24 +43,29 @@
 <script>
     import * as axios from "axios";
     import autoResize from "../mixins/autoResize";
-    import EmojiPicker from 'vue-emoji-picker';
+    import { Picker } from 'emoji-mart-vue'
 
     export default {
         name: "WritePost",
         mixins: [autoResize],
         components:{
-            EmojiPicker
+            Picker
         },
         data: function(){
           return{
               title: "Titel",
               content: "Hallo Welt",
-              response:""
+              response:"",
+              showEmojiPicker: false
           }
         },
         methods: {
-            insert(emoji) {
-                this.content += emoji
+            addEmoji(emoji) {
+                this.content +=emoji.native;
+                this.showEmojiPicker = false;
+            },
+            toggleEmojiPicker () {
+                this.showEmojiPicker = !this.showEmojiPicker
             },
             submit()
             {

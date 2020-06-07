@@ -1,6 +1,9 @@
 <template>
     <div v-if="loggedIn" class="feed">
         <WritePost></WritePost>
+        <div id="#emojiPicker" class="textarea-emoji-picker" style="position: absolute; left: 50%">
+            <picker v-show="showEmojiPicker" title="Pick your emoji..." emoji="point_up" @select="addEmoji"/>
+        </div>
         <div v-for="post in posts" :key="post.id">
             <Post
                     :post-id="post.id"
@@ -17,13 +20,15 @@
 <script>
     import Post from "../components/Post";
     import WritePost from "../components/WritePost";
-
+    import { Picker } from 'emoji-mart-vue'
     import * as axios from "axios";
+
     export default {
         name: "Feed",
         components: {
             Post,
-            WritePost
+            WritePost,
+            Picker
         },
         methods: {
             onInput(event) {
@@ -45,6 +50,9 @@
           },
             loggedIn: function () {
                 return !(this.$store.state.accessToken.toString() === "")
+            },
+            showEmojiPicker: function () {
+                return this.$store.state.showEmojiPicker;
             }
         },
         mounted () {
@@ -106,6 +114,5 @@
         .feed {
             width: 100% !important;
         }
-
     }
 </style>
